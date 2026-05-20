@@ -1,778 +1,760 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --happy-bg-1: #2d1f3d;
+    --happy-bg-2: #1a1528;
+    --happy-bg-3: #0f0a1a;
+    --scared-bg-1: #1f2d3d;
+    --scared-bg-2: #152028;
+    --scared-bg-3: #0a151f;
+    --neutral-bg-1: #2a2040;
+    --neutral-bg-2: #1a1530;
+    --neutral-bg-3: #100a20;
+    --face-color: #ffd6cc;
+    --blush-color: #ff9999;
+    --eye-color: #333;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  background-color: #f3f4f6;
-  color: #374151;
-  line-height: 1.6;
-}
-
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-/* Header */
-.header {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.header-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 0;
-}
-
-.logo {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.nav {
-  display: flex;
-  gap: 8px;
-}
-
-.nav-btn {
-  padding: 8px 16px;
-  border: none;
-  background-color: transparent;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
-  color: #6b7280;
-  transition: all 0.2s;
-}
-
-.nav-btn:hover {
-  background-color: #f3f4f6;
-  color: #374151;
-}
-
-.nav-btn.active {
-  background-color: #3b82f6;
-  color: #fff;
-}
-
-/* Main Content */
-.main {
-  padding: 24px 0;
-}
-
-.page {
-  display: none;
-}
-
-.page.active {
-  display: block;
-}
-
-/* Stats Grid */
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-bottom: 24px;
-}
-
-.stat-card {
-  background-color: #fff;
-  border-radius: 12px;
-  padding: 20px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-.stat-card .stat-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-}
-
-.stat-card.income .stat-icon {
-  background-color: #fee2e2;
-  color: #ef4444;
-}
-
-.stat-card.expense .stat-icon {
-  background-color: #dcfce7;
-  color: #22c55e;
-}
-
-.stat-card.balance .stat-icon {
-  background-color: #dbeafe;
-  color: #3b82f6;
-}
-
-.stat-label {
-  font-size: 12px;
-  color: #9ca3af;
-}
-
-.stat-value {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.stat-card.income .stat-value {
-  color: #ef4444;
-}
-
-.stat-card.expense .stat-value {
-  color: #22c55e;
-}
-
-.stat-card.balance .stat-value {
-  color: #3b82f6;
-}
-
-/* Card */
-.card {
-  background-color: #fff;
-  border-radius: 12px;
-  padding: 24px;
-  margin-bottom: 24px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-.card-title {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: #1f2937;
-}
-
-/* Form */
-.bill-form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.form-row {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.form-group label {
-  font-size: 14px;
-  font-weight: 500;
-  color: #4b5563;
-}
-
-.type-buttons {
-  display: flex;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.type-btn {
-  flex: 1;
-  padding: 10px;
-  border: none;
-  background-color: #fff;
-  cursor: pointer;
-  font-size: 14px;
-  color: #6b7280;
-  transition: all 0.2s;
-}
-
-.type-btn.active {
-  background-color: #22c55e;
-  color: #fff;
-}
-
-.type-btn.active[data-type="income"] {
-  background-color: #ef4444;
-}
-
-select, input {
-  padding: 10px 12px;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  font-size: 14px;
-  outline: none;
-  transition: border-color 0.2s;
-}
-
-select:focus, input:focus {
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-}
-
-.input-group {
-  position: relative;
-}
-
-.input-prefix {
-  position: absolute;
-  left: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #9ca3af;
-  font-size: 14px;
-}
-
-.input-group input {
-  padding-left: 28px;
-}
-
-.submit-btn {
-  padding: 12px;
-  background-color: #3b82f6;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.submit-btn:hover {
-  background-color: #2563eb;
-}
-
-/* Bill List */
-.bill-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.bill-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px;
-  background-color: #f9fafb;
-  border-radius: 8px;
-}
-
-.bill-item:hover {
-  background-color: #f3f4f6;
-}
-
-.bill-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.bill-type {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  font-weight: bold;
-}
-
-.bill-type.income {
-  background-color: #fee2e2;
-  color: #ef4444;
-}
-
-.bill-type.expense {
-  background-color: #dcfce7;
-  color: #22c55e;
-}
-
-.bill-info {
-  display: flex;
-  flex-direction: column;
-}
-
-.bill-category {
-  font-weight: 500;
-  color: #1f2937;
-}
-
-.bill-meta {
-  font-size: 12px;
-  color: #9ca3af;
-}
-
-.bill-right {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.bill-amount {
-  font-weight: bold;
-  font-size: 16px;
-}
-
-.bill-amount.income {
-  color: #ef4444;
-}
-
-.bill-amount.expense {
-  color: #22c55e;
-}
-
-.delete-btn {
-  width: 28px;
-  height: 28px;
-  border: none;
-  background-color: transparent;
-  border-radius: 6px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #9ca3af;
-  transition: all 0.2s;
-}
-
-.delete-btn:hover {
-  background-color: #fee2e2;
-  color: #ef4444;
-}
-
-/* Empty State */
-.empty-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 40px 20px;
-  color: #9ca3af;
-}
-
-.empty-icon {
-  font-size: 48px;
-  margin-bottom: 12px;
-}
-
-.empty-text {
-  font-size: 16px;
-  margin-bottom: 4px;
-}
-
-.empty-hint {
-  font-size: 14px;
-}
-
-/* Filter Bar */
-.filter-bar {
-  display: flex;
-  gap: 16px;
-  align-items: center;
-  margin-bottom: 24px;
-  flex-wrap: wrap;
-}
-
-.filter-item {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.filter-item label {
-  font-size: 12px;
-  color: #6b7280;
-}
-
-.view-btn {
-  padding: 10px 16px;
-  background-color: #3b82f6;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  margin-top: 18px;
-}
-
-.view-btn:hover {
-  background-color: #2563eb;
-}
-
-/* Category Tabs */
-.category-tabs {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 16px;
-}
-
-.tab-btn {
-  padding: 8px 16px;
-  border: none;
-  background-color: #f3f4f6;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
-  color: #6b7280;
-  transition: all 0.2s;
-}
-
-.tab-btn.active {
-  background-color: #3b82f6;
-  color: #fff;
-}
-
-/* Category Chart */
-.category-chart {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.category-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.category-bar-container {
-  flex: 1;
-  height: 24px;
-  background-color: #f3f4f6;
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-.category-bar {
-  height: 100%;
-  border-radius: 12px;
-  transition: width 0.3s;
-}
-
-.category-bar.expense {
-  background-color: #22c55e;
-}
-
-.category-bar.income {
-  background-color: #ef4444;
-}
-
-.category-info {
-  display: flex;
-  justify-content: space-between;
-  width: 120px;
-}
-
-.category-name {
-  font-size: 14px;
-}
-
-.category-amount {
-  font-size: 14px;
-  font-weight: 500;
-}
-
-/* Monthly Chart */
-.monthly-chart {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  height: 200px;
-  gap: 8px;
-}
-
-.monthly-bar-group {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-}
-
-.monthly-bar-container {
-  flex: 1;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  gap: 4px;
-}
-
-.monthly-bar {
-  width: 100%;
-  border-radius: 4px 4px 0 0;
-  transition: height 0.3s;
-}
-
-.monthly-bar.income {
-  background-color: #ef4444;
-}
-
-.monthly-bar.expense {
-  background-color: #22c55e;
-}
-
-.monthly-label {
-  font-size: 10px;
-  color: #9ca3af;
-}
-
-/* Modal */
-.modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  padding: 20px;
-}
-
-.modal.active {
-  display: flex;
-}
-
-.modal-content {
-  background-color: #fff;
-  border-radius: 12px;
-  width: 100%;
-  max-width: 600px;
-  max-height: 80vh;
-  overflow: hidden;
-}
-
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 24px;
-  border-bottom: 1px solid #e5e7eb;
-}
-
-.modal-header h3 {
-  font-size: 18px;
-}
-
-.close-btn {
-  width: 32px;
-  height: 32px;
-  border: none;
-  background-color: #f3f4f6;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 20px;
-  color: #6b7280;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.close-btn:hover {
-  background-color: #e5e7eb;
-}
-
-.modal-body {
-  padding: 24px;
-  max-height: calc(80vh - 80px);
-  overflow-y: auto;
-}
-
-.modal-bills {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.modal-bill-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px;
-  background-color: #f9fafb;
-  border-radius: 8px;
-}
-
-/* Export Section */
-.export-section {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.export-options {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.export-select {
-  padding: 8px 12px;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  font-size: 14px;
-  background-color: #fff;
-  cursor: pointer;
-}
-
-.export-select:focus {
-  outline: none;
-  border-color: #8b5cf6;
-}
-
-.export-btn {
-  padding: 10px 16px;
-  background-color: #8b5cf6;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.export-btn:hover {
-  background-color: #7c3aed;
-}
-
-/* Date Input */
-.date-input {
-  padding: 8px 12px;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  font-size: 14px;
-  background-color: #fff;
-  cursor: pointer;
-}
-
-.date-input:focus {
-  outline: none;
-  border-color: #8b5cf6;
-}
-
-/* Day Bills */
-.day-bills {
-  margin-bottom: 16px;
-}
-
-.day-bills .bill-item {
-  margin-bottom: 8px;
-}
-
-.day-summary {
-  background-color: #f8fafc;
-  border-radius: 8px;
-  padding: 16px;
-  margin-top: 16px;
-}
-
-.day-summary .summary-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 0;
-  color: #64748b;
-  font-size: 14px;
-}
-
-.day-summary .summary-row:not(:last-child) {
-  border-bottom: 1px solid #e2e8f0;
-}
-
-.day-summary .summary-row.total {
-  font-weight: bold;
-  color: #1e293b;
-}
-
-.day-summary .summary-row.total span:last-child {
-  font-size: 18px;
-}
-
-.day-summary #day-income {
-  color: #ef4444;
-}
-
-.day-summary #day-expense {
-  color: #22c55e;
-}
-
-.day-summary #day-balance {
-  color: #3b82f6;
-}
-
-/* Responsive */
-@media (max-width: 640px) {
-  .stats-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .form-row {
-    grid-template-columns: 1fr;
-  }
-  
-  .filter-bar {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  
-  .view-btn {
-    margin-top: 0;
-  }
-  
-  .export-section {
-    flex-direction: column;
-    gap: 12px;
-    align-items: stretch;
-  }
-  
-  .export-btn {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
+    min-height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--neutral-bg-1) 0%, var(--neutral-bg-2) 50%, var(--neutral-bg-3) 100%);
+    display: flex;
+    align-items: center;
     justify-content: center;
-  }
+    transition: background 2s ease;
+    position: relative;
 }
 
-/* 开发中提示 */
-.dev-notice {
-  text-align: center;
-  padding: 24px;
-  font-size: 16px;
-  color: #9ca3af;
-  background: linear-gradient(135deg, #fff5f5 0%, #f0fff4 50%, #dbeafe 100%);
-  border-radius: 12px;
-  margin-top: 24px;
-  border: 2px dashed #d1d5db;
-  animation: float 3s ease-in-out infinite;
+.cover {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 0;
+}
+
+.particles-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.emojis-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.emoji {
+    position: absolute;
+    font-size: 2rem;
+    opacity: 0;
+}
+
+.particle {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: float 10s ease-in-out infinite;
+    transition: background 2s ease;
 }
 
 @keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-5px);
-  }
+    0%, 100% {
+        transform: translateY(0) translateX(0) scale(1);
+        opacity: 0.3;
+    }
+    50% {
+        transform: translateY(-20px) translateX(10px) scale(1.1);
+        opacity: 0.5;
+    }
+}
+
+.main-container {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+.result-container {
+    text-align: center;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.options-container {
+    display: flex;
+    align-items: center;
+    gap: 280px;
+}
+
+.option-btn {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    user-select: none;
+    position: relative;
+}
+
+@keyframes btnBounce {
+    0% {
+        transform: scale(1);
+    }
+    30% {
+        transform: scale(0.9);
+    }
+    60% {
+        transform: scale(1.15);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.option-btn:active {
+    animation: btnBounce 0.4s ease;
+}
+
+.option-left {
+    background: linear-gradient(135deg, #8b4557, #6b3344);
+    box-shadow: 0 10px 30px rgba(139, 69, 87, 0.5);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.option-left:hover {
+    transform: scale(1.1);
+    box-shadow: 0 15px 40px rgba(139, 69, 87, 0.7);
+    background: linear-gradient(135deg, #9b5567, #7b4354);
+}
+
+.option-right {
+    background: linear-gradient(135deg, #456b45, #336633);
+    box-shadow: 0 10px 30px rgba(69, 107, 69, 0.5);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.option-right:hover {
+    transform: scale(1.1);
+    box-shadow: 0 15px 40px rgba(69, 107, 69, 0.7);
+    background: linear-gradient(135deg, #557b55, #437644);
+}
+
+.option-text {
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.character-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.character {
+    cursor: pointer;
+}
+
+.face {
+    width: 200px;
+    height: 180px;
+    background: var(--face-color);
+    border-radius: 100px 100px 0 0;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    transition: background 2s ease;
+    overflow: hidden;
+}
+
+.face-gradient {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border-radius: 100px 100px 0 0;
+    pointer-events: none;
+    z-index: 1;
+    transition: background 2s ease;
+}
+
+.blush {
+    position: absolute;
+    width: 32px;
+    height: 22px;
+    background: var(--blush-color);
+    border-radius: 50%;
+    top: 90px;
+    opacity: 0.4;
+    transition: opacity 2s ease;
+    z-index: 2;
+}
+
+.blush-left {
+    left: 20px;
+}
+
+.blush-right {
+    right: 20px;
+}
+
+.eyes {
+    position: absolute;
+    top: 45px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 52px;
+    z-index: 2;
+}
+
+.eye {
+    width: 40px;
+    height: 40px;
+    background: white;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    transition: all 1.5s ease;
+}
+
+.pupil {
+    width: 18px;
+    height: 18px;
+    background: var(--eye-color);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease-out;
+}
+
+.mouth {
+    position: absolute;
+    bottom: 35px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 50px;
+    background: white;
+    border-radius: 50%;
+    transition: all 1.5s ease;
+    z-index: 2;
+}
+
+.text-container {
+    text-align: center;
+}
+
+.main-text {
+    font-size: 1.5rem;
+    color: #ffffff;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.sub-text {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* ==================== 响应式设计 ==================== */
+
+/* 超大屏幕（1920px以上） */
+@media (min-width: 1920px) {
+    .main-container {
+        gap: 60px;
+    }
+    
+    .options-container {
+        gap: 400px;
+    }
+    
+    .option-btn {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .option-text {
+        font-size: 1.4rem;
+    }
+    
+    .face {
+        width: 250px;
+        height: 225px;
+        border-radius: 125px 125px 0 0;
+    }
+    
+    .face-gradient {
+        border-radius: 125px 125px 0 0;
+    }
+    
+    .eyes {
+        top: 56px;
+        gap: 65px;
+    }
+    
+    .eye {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .pupil {
+        width: 22px;
+        height: 22px;
+    }
+    
+    .mouth {
+        bottom: 44px;
+        width: 60px;
+        height: 60px;
+    }
+    
+    .blush {
+        width: 40px;
+        height: 28px;
+        top: 112px;
+    }
+    
+    .blush-left {
+        left: 25px;
+    }
+    
+    .blush-right {
+        right: 25px;
+    }
+    
+    .main-text {
+        font-size: 2rem;
+    }
+}
+
+/* 大屏幕（1440px - 1919px） */
+@media (min-width: 1440px) and (max-width: 1919px) {
+    .main-container {
+        gap: 50px;
+    }
+    
+    .options-container {
+        gap: 350px;
+    }
+    
+    .option-btn {
+        width: 140px;
+        height: 140px;
+    }
+    
+    .option-text {
+        font-size: 1.3rem;
+    }
+    
+    .face {
+        width: 230px;
+        height: 207px;
+        border-radius: 115px 115px 0 0;
+    }
+    
+    .face-gradient {
+        border-radius: 115px 115px 0 0;
+    }
+    
+    .eyes {
+        top: 52px;
+        gap: 60px;
+    }
+    
+    .eye {
+        width: 46px;
+        height: 46px;
+    }
+    
+    .pupil {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .mouth {
+        bottom: 40px;
+        width: 55px;
+        height: 55px;
+    }
+    
+    .blush {
+        width: 36px;
+        height: 26px;
+        top: 103px;
+    }
+    
+    .main-text {
+        font-size: 1.8rem;
+    }
+}
+
+/* 中等屏幕（1024px - 1439px） */
+@media (min-width: 1024px) and (max-width: 1439px) {
+    .main-container {
+        gap: 45px;
+    }
+    
+    .options-container {
+        gap: 300px;
+    }
+    
+    .option-btn {
+        width: 130px;
+        height: 130px;
+    }
+    
+    .option-text {
+        font-size: 1.2rem;
+    }
+    
+    .face {
+        width: 215px;
+        height: 193px;
+        border-radius: 107px 107px 0 0;
+    }
+    
+    .face-gradient {
+        border-radius: 107px 107px 0 0;
+    }
+    
+    .eyes {
+        top: 48px;
+        gap: 56px;
+    }
+    
+    .eye {
+        width: 43px;
+        height: 43px;
+    }
+    
+    .pupil {
+        width: 19px;
+        height: 19px;
+    }
+    
+    .mouth {
+        bottom: 37px;
+        width: 52px;
+        height: 52px;
+    }
+    
+    .blush {
+        width: 34px;
+        height: 24px;
+        top: 96px;
+    }
+    
+    .main-text {
+        font-size: 1.6rem;
+    }
+}
+
+/* 平板横屏（768px - 1023px） */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .main-container {
+        gap: 40px;
+    }
+    
+    .options-container {
+        gap: 200px;
+    }
+    
+    .option-btn {
+        width: 110px;
+        height: 110px;
+    }
+    
+    .option-text {
+        font-size: 1.1rem;
+    }
+    
+    .face {
+        width: 190px;
+        height: 171px;
+        border-radius: 95px 95px 0 0;
+    }
+    
+    .face-gradient {
+        border-radius: 95px 95px 0 0;
+    }
+    
+    .eyes {
+        top: 43px;
+        gap: 50px;
+    }
+    
+    .eye {
+        width: 38px;
+        height: 38px;
+    }
+    
+    .pupil {
+        width: 17px;
+        height: 17px;
+    }
+    
+    .mouth {
+        bottom: 33px;
+        width: 48px;
+        height: 48px;
+    }
+    
+    .blush {
+        width: 30px;
+        height: 21px;
+        top: 85px;
+    }
+    
+    .main-text {
+        font-size: 1.4rem;
+    }
+}
+
+/* 平板竖屏和小笔记本（600px - 767px） */
+@media (min-width: 600px) and (max-width: 767px) {
+    .main-container {
+        gap: 35px;
+    }
+    
+    .options-container {
+        gap: 120px;
+    }
+    
+    .option-btn {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .option-text {
+        font-size: 1rem;
+    }
+    
+    .face {
+        width: 175px;
+        height: 157px;
+        border-radius: 87px 87px 0 0;
+    }
+    
+    .face-gradient {
+        border-radius: 87px 87px 0 0;
+    }
+    
+    .eyes {
+        top: 40px;
+        gap: 46px;
+    }
+    
+    .eye {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .pupil {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .mouth {
+        bottom: 30px;
+        width: 45px;
+        height: 45px;
+    }
+    
+    .blush {
+        width: 28px;
+        height: 20px;
+        top: 78px;
+    }
+    
+    .main-text {
+        font-size: 1.2rem;
+    }
+}
+
+/* 手机横屏（481px - 599px） */
+@media (min-width: 481px) and (max-width: 599px) {
+    .main-container {
+        gap: 30px;
+    }
+    
+    .options-container {
+        gap: 100px;
+    }
+    
+    .option-btn {
+        width: 85px;
+        height: 85px;
+    }
+    
+    .option-text {
+        font-size: 0.9rem;
+    }
+    
+    .face {
+        width: 150px;
+        height: 135px;
+        border-radius: 75px 75px 0 0;
+    }
+    
+    .face-gradient {
+        border-radius: 75px 75px 0 0;
+    }
+    
+    .eyes {
+        top: 34px;
+        gap: 40px;
+    }
+    
+    .eye {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .pupil {
+        width: 13px;
+        height: 13px;
+    }
+    
+    .mouth {
+        bottom: 26px;
+        width: 40px;
+        height: 40px;
+    }
+    
+    .blush {
+        width: 24px;
+        height: 17px;
+        top: 67px;
+    }
+    
+    .blush-left {
+        left: 15px;
+    }
+    
+    .blush-right {
+        right: 15px;
+    }
+    
+    .main-text {
+        font-size: 1.1rem;
+        padding: 0 20px;
+    }
+}
+
+/* 手机竖屏（480px以下） */
+@media (max-width: 480px) {
+    .main-container {
+        gap: 25px;
+        padding: 0 15px;
+    }
+    
+    .options-container {
+        gap: 80px;
+    }
+    
+    .option-btn {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .option-text {
+        font-size: 0.8rem;
+    }
+    
+    .face {
+        width: 130px;
+        height: 117px;
+        border-radius: 65px 65px 0 0;
+    }
+    
+    .face-gradient {
+        border-radius: 65px 65px 0 0;
+    }
+    
+    .eyes {
+        top: 30px;
+        gap: 34px;
+    }
+    
+    .eye {
+        width: 26px;
+        height: 26px;
+    }
+    
+    .pupil {
+        width: 11px;
+        height: 11px;
+    }
+    
+    .mouth {
+        bottom: 22px;
+        width: 35px;
+        height: 35px;
+    }
+    
+    .blush {
+        width: 20px;
+        height: 14px;
+        top: 58px;
+    }
+    
+    .blush-left {
+        left: 12px;
+    }
+    
+    .blush-right {
+        right: 12px;
+    }
+    
+    .main-text {
+        font-size: 1rem;
+        padding: 0 15px;
+    }
+    
+    .result-text {
+        font-size: 1.2rem;
+        padding: 0 20px;
+    }
 }

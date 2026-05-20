@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>result</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #3d1f2d 0%, #2a1520 50%, #1a0a15 100%);
+            position: relative;
+            overflow: hidden;
+            transition: background 2s ease;
+        }
+
+        .cover {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1;
+        }
+
+        .emojis-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .background-emoji {
+            position: absolute;
+            opacity: 0.4;
+        }
+
+        .result-container {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 60px 40px;
+            max-width: 90%;
+        }
+
+        .result-text {
+            font-size: 3.5rem;
+            color: #ffb3c6;
+            font-weight: 700;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            line-height: 1.4;
+        }
+
+        /* ==================== 响应式设计 ==================== */
+
+        /* 超大屏幕（1920px以上） */
+        @media (min-width: 1920px) {
+            .result-text {
+                font-size: 5rem;
+            }
+
+            .result-container {
+                padding: 80px 60px;
+            }
+        }
+
+        /* 大屏幕（1440px - 1919px） */
+        @media (min-width: 1440px) and (max-width: 1919px) {
+            .result-text {
+                font-size: 4.5rem;
+            }
+
+            .result-container {
+                padding: 70px 50px;
+            }
+        }
+
+        /* 中等屏幕（1024px - 1439px） */
+        @media (min-width: 1024px) and (max-width: 1439px) {
+            .result-text {
+                font-size: 4rem;
+            }
+
+            .result-container {
+                padding: 65px 45px;
+            }
+        }
+
+        /* 平板横屏（768px - 1023px） */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .result-text {
+                font-size: 3.5rem;
+            }
+
+            .result-container {
+                padding: 55px 40px;
+            }
+        }
+
+        /* 平板竖屏和小笔记本（600px - 767px） */
+        @media (min-width: 600px) and (max-width: 767px) {
+            .result-text {
+                font-size: 3rem;
+            }
+
+            .result-container {
+                padding: 50px 35px;
+            }
+        }
+
+        /* 手机横屏（481px - 599px） */
+        @media (min-width: 481px) and (max-width: 599px) {
+            .result-text {
+                font-size: 2.5rem;
+            }
+
+            .result-container {
+                padding: 40px 30px;
+            }
+        }
+
+        /* 手机竖屏（480px以下） */
+        @media (max-width: 480px) {
+            .result-text {
+                font-size: 1.8rem;
+            }
+
+            .result-container {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cover"></div>
+    <div class="emojis-background" id="emojisBackground"></div>
+    <div class="result-container">
+        <p class="result-text" id="resultText"></p>
+    </div>
+
+    <script>
+        // ==================== 表情配置 ====================
+        const emojis = [
+            '😍', '🥰', '😘', '😝', '👻', '🥺',
+            '(๑•ᴗ•๑)♡', '(◍＞◡＜◍)', 'ฅ₍ᐢ⸝⸝› ̫ ‹⸝⸝ᐢ₎ฅ˒˒', '•͈⚇•͈♡̷'
+        ];
+
+        // ==================== 背景表情填充系统 ====================
+        const emojisBackground = document.getElementById('emojisBackground');
+        let addedEmojis = 0;
+        let isAddingEmojis = true;
+        let intervalId = null;
+        let currentDelay = 300;  // 初始延迟（毫秒）
+        const minDelay = 30;     // 最小延迟（毫秒）
+        const delayDecrement = 5;  // 每次减少的延迟
+
+        // 计算屏幕能容纳多少表情
+        function calculateMaxEmojis() {
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
+            const avgEmojiSize = 120;  // 假设表情平均占用120px
+
+            const cols = Math.ceil(screenWidth / avgEmojiSize);
+            const rows = Math.ceil(screenHeight / avgEmojiSize);
+            return cols * rows;
+        }
+
+        // 创建随机位置的表情
+        function createRandomEmoji() {
+            if (!isAddingEmojis) return;
+
+            const emoji = document.createElement('div');
+            emoji.className = 'background-emoji';
+
+            // 随机选择表情
+            emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+
+            // 随机大小（1.5rem - 3rem）
+            const size = Math.random() * 1.5 + 1.5;
+            emoji.style.fontSize = `${size}rem`;
+
+            // 随机位置
+            let left, top;
+            let attempts = 0;
+            const maxAttempts = 30;
+
+            do {
+                left = Math.random() * 92 + 4;  // 4% - 96%
+                top = Math.random() * 90 + 5;   // 5% - 95%
+                attempts++;
+
+                // 检查是否太接近已有表情
+                const existingEmojis = emojisBackground.querySelectorAll('.background-emoji');
+                let tooClose = false;
+
+                for (const existing of existingEmojis) {
+                    const existingLeft = parseFloat(existing.style.left);
+                    const existingTop = parseFloat(existing.style.top);
+
+                    // 随着数量增加，碰撞检测稍微放宽
+                    const threshold = 6 + (addedEmojis / 50);
+                    if (Math.abs(existingLeft - left) < threshold && Math.abs(existingTop - top) < threshold) {
+                        tooClose = true;
+                        break;
+                    }
+                }
+
+                if (!tooClose || attempts >= maxAttempts) break;
+            } while (true);
+
+            emoji.style.left = `${left}%`;
+            emoji.style.top = `${top}%`;
+
+            // 随机透明度（0.3 - 0.5）
+            const opacity = Math.random() * 0.2 + 0.3;
+            emoji.style.opacity = opacity;
+
+            // 随机轻微旋转（-30deg到30deg）
+            const rotation = Math.random() * 60 - 30;
+            emoji.style.transform = `rotate(${rotation}deg)`;
+
+            emojisBackground.appendChild(emoji);
+            addedEmojis++;
+
+            // 检查是否占满屏幕
+            const maxEmojis = calculateMaxEmojis();
+            if (addedEmojis >= maxEmojis * 0.9) {  // 达到90%就停止
+                stopAddingEmojis();
+            }
+        }
+
+        // 停止添加表情
+        function stopAddingEmojis() {
+            isAddingEmojis = false;
+            if (intervalId) {
+                clearInterval(intervalId);
+                intervalId = null;
+            }
+        }
+
+        // 填充背景表情（频率越来越快）
+        function fillBackgroundEmojis() {
+            // 初始阶段：较慢添加
+            for (let i = 0; i < 10; i++) {
+                setTimeout(() => {
+                    createRandomEmoji();
+                }, i * 200);
+            }
+
+            // 逐渐加速添加
+            currentDelay = 250;
+
+            function addWithAcceleration() {
+                if (!isAddingEmojis) return;
+
+                createRandomEmoji();
+
+                // 逐渐加快速度
+                if (currentDelay > minDelay) {
+                    currentDelay -= delayDecrement;
+                }
+
+                // 继续添加
+                setTimeout(addWithAcceleration, currentDelay);
+            }
+
+            // 1秒后开始加速
+            setTimeout(() => {
+                addWithAcceleration();
+            }, 2000);
+        }
+
+        // 从 URL 参数获取结果
+        function getQueryParam(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        // 显示结果
+        function showResult() {
+            const resultType = getQueryParam('result');
+            const resultText = document.getElementById('resultText');
+
+            if (resultType === 'perfect') {
+                resultText.textContent = '我就知道😍老婆很爱我';
+            } else {
+                resultText.textContent = '居然不是全对！这次就原谅你吧，谁叫老婆这么可爱👻';
+            }
+        }
+
+        // 页面加载后显示结果和填充表情
+        document.addEventListener('DOMContentLoaded', () => {
+            showResult();
+            fillBackgroundEmojis();
+        });
+    </script>
+</body>
+
+</html>

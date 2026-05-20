@@ -1,253 +1,54 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>个人收支账本</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>int</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-  <div id="app">
-    <header class="header">
-      <div class="container">
-        <div class="header-content">
-          <h1 class="logo">💰 个人收支账本</h1>
-          <nav class="nav">
-            <button class="nav-btn active" data-page="dashboard">首页</button>
-            <button class="nav-btn" data-page="reports">统计报表</button>
-          </nav>
-        </div>
-      </div>
-    </header>
+    <div class="cover"></div>
+    <div class="particles-container" id="particlesContainer"></div>
+    <div class="emojis-container" id="emojisContainer"></div>
 
-    <main class="main">
-      <div class="container">
-        <!-- 仪表盘页面 -->
-        <div id="dashboard" class="page active">
-          <!-- 统计卡片 -->
-          <div class="stats-grid">
-            <div class="stat-card income">
-              <div class="stat-icon">↑</div>
-              <div class="stat-content">
-                <div class="stat-label">总收入</div>
-                <div class="stat-value" id="total-income">¥0.00</div>
-              </div>
+    <div class="main-container">
+        <div class="options-container">
+            <div class="option-btn option-left" id="optionLeft">
+                <span class="option-text">不是</span>
             </div>
-            <div class="stat-card expense">
-              <div class="stat-icon">↓</div>
-              <div class="stat-content">
-                <div class="stat-label">总支出</div>
-                <div class="stat-value" id="total-expense">¥0.00</div>
-              </div>
-            </div>
-            <div class="stat-card balance">
-              <div class="stat-icon">≈</div>
-              <div class="stat-content">
-                <div class="stat-label">结余</div>
-                <div class="stat-value" id="balance">¥0.00</div>
-              </div>
-            </div>
-          </div>
 
-          <!-- 添加账单表单 -->
-          <div class="card">
-            <h2 class="card-title">添加账单</h2>
-            <form id="bill-form" class="bill-form">
-              <div class="form-row">
-                <div class="form-group">
-                  <label>收支类型</label>
-                  <div class="type-buttons">
-                    <button type="button" class="type-btn active" data-type="expense">支出</button>
-                    <button type="button" class="type-btn" data-type="income">收入</button>
-                  </div>
-                  <input type="hidden" id="bill-type" name="type" value="expense">
+            <div class="character-container" id="characterContainer">
+                <div class="character" id="character">
+                    <div class="face" id="face">
+                        <div class="face-gradient" id="faceGradient"></div>
+                        <div class="blush-left blush"></div>
+                        <div class="blush-right blush"></div>
+                        <div class="eyes">
+                            <div class="eye left-eye" id="eyeLeft">
+                                <div class="pupil" id="pupilLeft"></div>
+                            </div>
+                            <div class="eye right-eye" id="eyeRight">
+                                <div class="pupil" id="pupilRight"></div>
+                            </div>
+                        </div>
+                        <div class="mouth" id="mouth"></div>
+                    </div>
                 </div>
-              </div>
-              
-              <div class="form-row">
-                <div class="form-group">
-                  <label>分类</label>
-                  <select id="bill-category" name="category" required>
-                    <option value="">请选择分类</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label>金额</label>
-                  <div class="input-group">
-                    <span class="input-prefix">¥</span>
-                    <input type="number" id="bill-amount" name="amount" placeholder="0.00" step="0.01" required>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="form-row">
-                <div class="form-group">
-                  <label>日期</label>
-                  <input type="date" id="bill-date" name="date" required>
-                </div>
-                <div class="form-group">
-                  <label>备注</label>
-                  <input type="text" id="bill-remark" name="remark" placeholder="添加备注">
-                </div>
-              </div>
-              
-              <button type="submit" class="submit-btn">添加账单</button>
-            </form>
-          </div>
+            </div>
 
-          <!-- 导出按钮 -->
-          <div class="card">
-            <div class="export-section">
-              <h2 class="card-title">账单列表</h2>
-              <div class="export-options">
-                <select id="export-range" class="export-select">
-                  <option value="all">全部账单</option>
-                  <option value="today">今日账单</option>
-                  <option value="month">本月账单</option>
-                  <option value="year">本年账单</option>
-                </select>
-                <button id="export-btn" class="export-btn">📷 导出为照片</button>
-              </div>
+            <div class="option-btn option-right" id="optionRight">
+                <span class="option-text">是</span>
             </div>
-            <div id="bill-list" class="bill-list">
-              <div class="empty-state">
-                <div class="empty-icon">📝</div>
-                <div class="empty-text">暂无账单记录</div>
-                <div class="empty-hint">点击上方「添加账单」开始记录您的收支</div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- 开发中提示 -->
-          <div class="dev-notice">
-            🐷 还在开发中，更多精彩功能敬请期待！
-          </div>
         </div>
 
-        <!-- 统计报表页面 -->
-        <div id="reports" class="page">
-          <div class="filter-bar">
-            <div class="filter-item">
-              <label>年份</label>
-              <select id="report-year"></select>
-            </div>
-            <div class="filter-item">
-              <label>月份</label>
-              <select id="report-month">
-                <option value="1">1月</option>
-                <option value="2">2月</option>
-                <option value="3">3月</option>
-                <option value="4">4月</option>
-                <option value="5">5月</option>
-                <option value="6">6月</option>
-                <option value="7">7月</option>
-                <option value="8">8月</option>
-                <option value="9">9月</option>
-                <option value="10">10月</option>
-                <option value="11">11月</option>
-                <option value="12">12月</option>
-              </select>
-            </div>
-            <div class="filter-item">
-              <label>日期</label>
-              <input type="date" id="report-date" class="date-input">
-            </div>
-            <button id="view-month-bills" class="view-btn">查看当月账单</button>
-            <button id="view-day-bills" class="view-btn">查看当日账单</button>
-          </div>
-
-          <!-- 月度统计卡片 -->
-          <div class="stats-grid">
-            <div class="stat-card income">
-              <div class="stat-label">本月收入</div>
-              <div class="stat-value" id="monthly-income">¥0.00</div>
-            </div>
-            <div class="stat-card expense">
-              <div class="stat-label">本月支出</div>
-              <div class="stat-value" id="monthly-expense">¥0.00</div>
-            </div>
-            <div class="stat-card balance">
-              <div class="stat-label">本月结余</div>
-              <div class="stat-value" id="monthly-balance">¥0.00</div>
-            </div>
-          </div>
-
-          <!-- 当日账单详情 -->
-          <div class="card">
-            <h2 class="card-title" id="day-bill-title">当日账单详情</h2>
-            <div id="day-bills" class="day-bills">
-              <div class="empty-state">
-                <div class="empty-icon">📅</div>
-                <div class="empty-text">选择日期查看当日账单</div>
-                <div class="empty-hint">点击上方日期选择器，然后点击「查看当日账单」</div>
-              </div>
-            </div>
-            <div id="day-summary" class="day-summary" style="display: none;">
-              <div class="summary-row">
-                <span>当日收入</span>
-                <span id="day-income">¥0.00</span>
-              </div>
-              <div class="summary-row">
-                <span>当日支出</span>
-                <span id="day-expense">¥0.00</span>
-              </div>
-              <div class="summary-row total">
-                <span>当日结余</span>
-                <span id="day-balance">¥0.00</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- 分类统计 -->
-          <div class="card">
-            <h2 class="card-title">分类统计</h2>
-            <div class="category-tabs">
-              <button class="tab-btn active" data-tab="expense">支出分类</button>
-              <button class="tab-btn" data-tab="income">收入分类</button>
-            </div>
-            <div id="category-chart" class="category-chart">
-              <div class="empty-state">
-                <div class="empty-text">暂无数据</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 月度趋势 -->
-          <div class="card">
-            <h2 class="card-title">月度收支趋势</h2>
-            <div id="monthly-chart" class="monthly-chart">
-              <div class="empty-state">
-                <div class="empty-text">暂无数据</div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- 开发中提示 -->
-          <div class="dev-notice">
-            🐷 还在开发中，更多精彩功能敬请期待！
-          </div>
+        <div class="text-container" id="textContainer">
+            <p class="main-text" id="questionText">我是不是超爱你！</p>
         </div>
-      </div>
-    </main>
-
-    <!-- 月度账单弹窗 -->
-    <div id="monthly-modal" class="modal">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3 id="modal-title">2026年5月账单</h3>
-          <button id="close-modal" class="close-btn">×</button>
-        </div>
-        <div class="modal-body">
-          <div id="modal-bills" class="modal-bills">
-            <div class="empty-state">
-              <div class="empty-text">本月暂无账单</div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
 
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
+
 </html>
